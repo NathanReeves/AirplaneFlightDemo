@@ -6,3 +6,5 @@ Controls:
 - Press space to fire missiles
 
 Unity Version: 2022.3.10f1
+
+Video playthrough: https://youtu.be/_sJ351l5iuI
