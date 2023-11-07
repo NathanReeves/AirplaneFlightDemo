@@ -7,6 +7,6 @@ Controls:
 
 Unity Version: 2022.3.10f1
 
-![screenshot](https://github.com/NathanReeves/AirplaneFlightDemo/Assets/Art/screenshot.jpg)
+![screenshot](Assets/Art/screenshot.jpg?raw=true)
 
 Video playthrough: https://youtu.be/_sJ351l5iuI
