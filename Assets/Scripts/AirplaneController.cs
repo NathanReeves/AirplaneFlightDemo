@@ -41,6 +41,10 @@ public class AirplaneController : MonoBehaviour
     void Update()
     {
         handleInput();
+    }
+
+    void FixedUpdate()
+    {
         Airplane.PlaneMotion(finalThrust, finalRotateTorque);
     }
 

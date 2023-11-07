@@ -12,9 +12,9 @@ public class AiController : MonoBehaviour
     public LayerMask ObstacleLayer;
     public bool EnableObstacleAvoidance = true;
 
-    const float delay = 2.2f;
+    const float startDelay = 2.4f;
     const float obstacleAvoidDistance = 25f;
-    float followSmoothSpeed = 60f;
+    float followSmoothSpeed = 120f;
 
 
     Queue<Pose> targetPositions = new Queue<Pose>();
@@ -28,7 +28,7 @@ public class AiController : MonoBehaviour
         Airplane.PlaneCrashed += aiPlaneCrashed;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isFollowing && Airplane.CurrentPlaneState != PlaneState.Crashed)
         {
@@ -88,17 +88,17 @@ public class AiController : MonoBehaviour
     IEnumerator FollowTarget()
     {
         float startTime = Time.time;
-        while(Time.time < startTime + delay)
+        while(Time.time < startTime + startDelay)
         {
             targetPositions.Enqueue(new Pose(Target.position, Target.rotation));
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
-        followSmoothSpeed = 150f;
+        followSmoothSpeed = 300f;
         isFollowing = true;
         while (true)
         {
             targetPositions.Enqueue(new Pose(Target.position, Target.rotation)); // Store the current position of the target
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 }

@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
         startTime = Time.time;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Time.time > startTime + lifetime)
         {

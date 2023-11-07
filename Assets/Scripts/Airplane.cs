@@ -23,7 +23,7 @@ public class Airplane : MonoBehaviour
     const float jetIdleSpeed = 10f;
     const float jetThrustSpeed = 20f;
     const float jetBoostSpeed = 60f;
-    const float jetEffectSmoothSpeed = 30f;
+    const float jetEffectSmoothSpeed = 60f;
 
     const float jetIdlePitch = 1f;
     const float jetThrustPitch = 1.5f;
@@ -76,8 +76,8 @@ public class Airplane : MonoBehaviour
     {
         if (CurrentPlaneState == PlaneState.Crashed)
             return;
-        planeRigidbody.AddForce(thrust * Time.deltaTime);
-        planeRigidbody.AddTorque(rotateTorque * Time.deltaTime);
+        planeRigidbody.AddForce(thrust * Time.fixedDeltaTime);
+        planeRigidbody.AddTorque(rotateTorque * Time.fixedDeltaTime);
     }
 
     public void PlaneMotionPose(Pose pose)
@@ -102,7 +102,7 @@ public class Airplane : MonoBehaviour
         SoundManager.Instance.PlaySound(SoundType.Missile);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         updateJetState();
         if(currentJetState != JetState.Off)
@@ -117,7 +117,7 @@ public class Airplane : MonoBehaviour
         foreach (var engine in JetEngines)
         {
             var particles = engine.main;
-            particles.startSpeed = new ParticleSystem.MinMaxCurve(Mathf.MoveTowards(particles.startSpeed.constant, finalJetSpeed, jetEffectSmoothSpeed * Time.deltaTime));
+            particles.startSpeed = new ParticleSystem.MinMaxCurve(Mathf.MoveTowards(particles.startSpeed.constant, finalJetSpeed, jetEffectSmoothSpeed * Time.fixedDeltaTime));
         }
     }
 
@@ -125,7 +125,7 @@ public class Airplane : MonoBehaviour
     {
         if (IsAIPlane)
             return;
-        float smoothPitch = Mathf.MoveTowards(currentJetPitch, finalJetPitch, jetEffectSmoothSpeed * Time.deltaTime);
+        float smoothPitch = Mathf.MoveTowards(currentJetPitch, finalJetPitch, jetEffectSmoothSpeed * Time.fixedDeltaTime);
         SoundManager.Instance.AdjustSoundPitch(SoundType.Engine, smoothPitch);
         currentJetPitch = smoothPitch;
     }
